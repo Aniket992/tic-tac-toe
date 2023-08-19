@@ -11,7 +11,7 @@ body {
   background-color: rgb(141, 33, 181);
   margin: 50px;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: row; */
   justify-content: center;
   align-items: center;
   min-height: 80vh;
@@ -29,6 +29,7 @@ button {
   display: grid;
   grid-template-columns: repeat(3, 200px);
   grid-template-rows: repeat(3, 200px);
+  
 }
 h2 {
   color: rgb(212, 251, 42);
@@ -52,4 +53,25 @@ h2 {
 }
 .blink {
   animation: blink 0.6s linear infinite;
+}
+.player{
+  margin: 20px;
+ background-color: brown;
+ justify-content: center;
+ height: 80vh;
+ width: 500px;
+ border-radius: 10px;
+}
+span{
+  color: black;
+  font-size: xx-large;  
+}
+input{
+  margin: 20px;
+  background-color: aqua;
+  height: 50px;
+  width: 300px;
+  font-size: x-large;
+  font-style: italic;
+  border-radius: 10px;
 }

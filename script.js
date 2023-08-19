@@ -1,5 +1,7 @@
 const player1 = "x";
 const player2 = "O";
+let player1name = document.getElementById("player1name");
+let player2name = document.getElementById("player2name");
 let audioElement = new Audio("ding.mp3");
 let gameover = new Audio("gameover.mp3");
 let display = document.getElementById("display");
@@ -10,6 +12,8 @@ const playerColors = {
   x: "yellow",
   O: "orange",
 };
+const firstname = player1name.value;
+
 
 const boxes = document.querySelectorAll(".box");
 
@@ -23,7 +27,14 @@ boxes.forEach((box, index) => {
 
       if (checkWinner()) {
         gameover.play();
-        display.innerHTML = `${currentPlayer} wins`;
+        // if(currentPlayer = "x"){
+        // // display.innerHTML = `${currentPlayer} wins`;
+        //    display.innerHTML = player1name+"wins";
+        // }
+        if (currentPlayer === "x") {
+          // display.innerHTML = `${currentPlayer} wins`;
+          display.innerHTML = `${player1name.innerHTML} wins`;
+        }
         if ((gameOver = true));
       } else if (board.every((cell) => cell !== "")) {
         alert("it's a draw!");

@@ -66,6 +66,9 @@ button {
   .player2 {
     margin: 5px;
   }
+  body{
+    margin-top: 0;
+  }
 }
 
 .player2 {

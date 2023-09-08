@@ -12,39 +12,50 @@ const playerColors = {
   x: "yellow",
   O: "orange",
 };
-const firstname = player1name.value;
 
+const boxes = document.querySelectorAll(".box"); // Define boxes outside of enableGame
 
-const boxes = document.querySelectorAll(".box");
+const startButton = document.getElementById("startButton"); // Add a button to start the game
 
-boxes.forEach((box, index) => {
-  box.addEventListener("click", () => {
-    audioElement.play();
-    if (!gameOver && board[index] === "") {
-      board[index] = currentPlayer;
-      box.textContent = currentPlayer;
-      box.style.backgroundColor = playerColors[currentPlayer]; // Set color based on player
+startButton.addEventListener("click", () => {
+  const name1 = player1name.value.trim();
+  const name2 = player2name.value.trim();
 
-      if (checkWinner()) {
-        gameover.play();
-        // if(currentPlayer = "x"){
-        // // display.innerHTML = `${currentPlayer} wins`;
-        //    display.innerHTML = player1name+"wins";
-        // }
-        if (currentPlayer === "x") {
-          // display.innerHTML = `${currentPlayer} wins`;
-          display.innerHTML = `${player1name.innerHTML} wins`;
-        }
-        if ((gameOver = true));
-      } else if (board.every((cell) => cell !== "")) {
-        alert("it's a draw!");
-        gameOver = true;
-      } else {
-        currentPlayer = currentPlayer === player1 ? player2 : player1;
-      }
-    }
-  });
+  if (name1 === "" || name2 === "") {
+    alert("Please enter names for both players to start the game.");
+  } else {
+    enableGame();
+  }
 });
+
+function enableGame() {
+  // Enable game logic here
+  boxes.forEach((box, index) => {
+    box.addEventListener("click", () => {
+      audioElement.play();
+      if (!gameOver && board[index] === "") {
+        board[index] = currentPlayer;
+        box.textContent = currentPlayer;
+        box.style.backgroundColor = playerColors[currentPlayer];
+
+        if (checkWinner()) {
+          gameover.play();
+          if (currentPlayer === "x") {
+            display.innerHTML = `${player1name.value} wins`;
+          } else {
+            display.innerHTML = `${player2name.value} wins`;
+          }
+          gameOver = true;
+        } else if (board.every((cell) => cell !== "")) {
+          alert("It's a draw!");
+          gameOver = true;
+        } else {
+          currentPlayer = currentPlayer === player1 ? player2 : player1;
+        }
+      }
+    });
+  });
+}
 
 function checkWinner() {
   const winConditions = [
@@ -57,8 +68,8 @@ function checkWinner() {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  return winConditions.some((condititon) => {
-    const [a, b, c] = condititon;
+  return winConditions.some((condition) => {
+    const [a, b, c] = condition;
     if (board[a] && board[a] === board[b] && board[b] === board[c]) {
       boxes[a].style.backgroundColor =
         boxes[b].style.backgroundColor =

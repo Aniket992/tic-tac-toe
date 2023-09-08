@@ -3,20 +3,39 @@
   padding: 0;
 }
 body {
+  margin-top: 100px;
+  padding: auto;
   text-align: center;
   background-color: black;
   color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .boxcontainer {
   background-color: rgb(141, 33, 181);
-  margin: 50px;
   display: flex;
-  /* flex-direction: row; */
+  margin: auto;
   justify-content: center;
-  align-items: center;
-  min-height: 80vh;
+  height: auto;
+  width: auto;
+  border-radius: 7px;
+  display: flex;
 }
-
+.player1 {
+  margin: 20px;
+  background-color: yellow;
+  height: auto;
+  width: auto;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+.biggerbox {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+}
 button {
   height: 200px;
   width: 200px;
@@ -24,16 +43,38 @@ button {
   border-color: rgb(77, 212, 53);
   font-size: xx-large;
 }
-.biggerbox {
-  background-color: blueviolet;
-  display: grid;
-  grid-template-columns: repeat(3, 200px);
-  grid-template-rows: repeat(3, 200px);
-  
+#startButton {
+  height: 50px;
+  width: 200px;
+  color: black;
+  background-color: green;
+  border-radius: 9px;
+  margin: 5px;
 }
-h2 {
-  color: rgb(212, 251, 42);
-  font-size: xx-large;
+@media (max-width: 1240px) {
+  button {
+    height: 100px;
+    width: 100px;
+  }
+  .biggerbox {
+    grid-template-columns: repeat(3, 100px);
+  }
+  .boxcontainer {
+    flex-direction: column;
+  }
+  .player1,
+  .player2 {
+    margin: 5px;
+  }
+}
+
+.player2 {
+  margin: 20px;
+  background-color: yellow;
+  height: auto;
+  width: auto;
+  border-radius: 10px;
+  border: 1px solid black;
 }
 
 @keyframes blink {
@@ -41,11 +82,7 @@ h2 {
     background-color: inherit;
   }
   50% {
-    background-color: rgb(
-      0,
-      255,
-      234
-    );
+    background-color: rgb(0, 255, 234);
   }
   100% {
     background-color: inherit;
@@ -54,23 +91,17 @@ h2 {
 .blink {
   animation: blink 0.6s linear infinite;
 }
-.player{
-  margin: 20px;
- background-color: brown;
- justify-content: center;
- height: 80vh;
- width: 500px;
- border-radius: 10px;
-}
-span{
+
+span {
   color: black;
-  font-size: xx-large;  
+  font-size: xx-large;
 }
-input{
+input {
+  padding: 5px;
   margin: 20px;
-  background-color: aqua;
-  height: 50px;
-  width: 300px;
+  background-color: rgb(228, 159, 69);
+  height: 30px;
+  width: 200px;
   font-size: x-large;
   font-style: italic;
   border-radius: 10px;

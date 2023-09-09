@@ -8,21 +8,23 @@ let display = document.getElementById("display");
 let currentPlayer = player1;
 let board = ["", "", "", "", "", "", "", "", ""];
 let gameOver = false;
-let player1Score = 0; // Initialize player1's score to 0
-let player2Score = 0; // Initialize player2's score to 0
+let player1Score = 0; 
+let player2Score = 0; 
 const playerColors = {
   x: "yellow",
   O: "orange",
 };
 
-const boxes = document.querySelectorAll(".box"); // Define boxes outside of enableGame
+const boxes = document.querySelectorAll(".box"); 
 const scores1 = document.getElementById("scores1");
 const scores2 = document.getElementById("scores2");
-const startButton = document.getElementById("startButton"); // Add a button to start the game
-const playAgainButton = document.getElementById("playAgainButton"); // Add a button to play again
+const startButton = document.getElementById("startButton");  
+const playAgainButton = document.getElementById("playAgainButton"); 
 const resetButton = document.getElementById("resetButton");
 
-resetButton.addEventListener("click", () => {
+resetButton.addEventListener("click", resetGame);
+
+function resetGame() {
   player1Score = 0;
   player2Score = 0;
   scores1.innerHTML = `Score: ${player1Score}`;
@@ -34,12 +36,14 @@ resetButton.addEventListener("click", () => {
   gameOver = false;
   board = ["", "", "", "", "", "", "", "", ""];
 
+
   boxes.forEach((box) => {
     box.textContent = "";
     box.style.backgroundColor = "";
     box.classList.remove("blink");
+    box.removeEventListener("click", handleBoxClick);
   });
-});
+}
 
 startButton.addEventListener("click", () => {
   const name1 = player1name.value.trim();
@@ -62,39 +66,46 @@ playAgainButton.addEventListener("click", () => {
 
   gameOver = false;
   display.innerHTML = "";
-
   currentPlayer = player1;
+
+  enableGame();  
 });
+ 
+
+function handleBoxClick(event) {
+  const box = event.target;
+  const index = Array.from(boxes).indexOf(box); 
+
+  audioElement.play();
+  if (!gameOver && board[index] === "") {
+    board[index] = currentPlayer;
+    box.textContent = currentPlayer;
+    box.style.backgroundColor = playerColors[currentPlayer];
+
+    if (checkWinner()) {
+      gameover.play();
+      if (currentPlayer === "x") {
+        display.innerHTML = `${player1name.value} wins`;
+        player1Score++;
+        scores1.innerHTML = `Score: ${player1Score}`;
+      } else {
+        display.innerHTML = `${player2name.value} wins`;
+        player2Score++;
+        scores2.innerHTML = `Score: ${player2Score}`;
+      }
+      gameOver = true;
+    } else if (board.every((cell) => cell !== "")) {
+      alert("It's a draw!");
+      gameOver = true;
+    } else {
+      currentPlayer = currentPlayer === player1 ? player2 : player1;
+    }
+  }
+}
 
 function enableGame() {
-  boxes.forEach((box, index) => {
-    box.addEventListener("click", () => {
-      audioElement.play();
-      if (!gameOver && board[index] === "") {
-        board[index] = currentPlayer;
-        box.textContent = currentPlayer;
-        box.style.backgroundColor = playerColors[currentPlayer];
-
-        if (checkWinner()) {
-          gameover.play();
-          if (currentPlayer === "x") {
-            display.innerHTML = `${player1name.value} wins`;
-            player1Score++;
-            scores1.innerHTML = `Score: ${player1Score}`;
-          } else {
-            display.innerHTML = `${player2name.value} wins`;
-            player2Score++;
-            scores2.innerHTML = `Score: ${player2Score}`;
-          }
-          gameOver = true;
-        } else if (board.every((cell) => cell !== "")) {
-          alert("It's a draw!");
-          gameOver = true;
-        } else {
-          currentPlayer = currentPlayer === player1 ? player2 : player1;
-        }
-      }
-    });
+  boxes.forEach((box) => {
+    box.addEventListener("click", handleBoxClick);
   });
 }
 
@@ -120,6 +131,6 @@ function checkWinner() {
       boxes[b].classList.add("blink");
       boxes[c].classList.add("blink");
       return true;
-    }
-  });
+    }
+  });
 }

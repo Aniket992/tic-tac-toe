@@ -8,14 +8,38 @@ let display = document.getElementById("display");
 let currentPlayer = player1;
 let board = ["", "", "", "", "", "", "", "", ""];
 let gameOver = false;
+let player1Score = 0; // Initialize player1's score to 0
+let player2Score = 0; // Initialize player2's score to 0
 const playerColors = {
   x: "yellow",
   O: "orange",
 };
 
 const boxes = document.querySelectorAll(".box"); // Define boxes outside of enableGame
-
+const scores1 = document.getElementById("scores1");
+const scores2 = document.getElementById("scores2");
 const startButton = document.getElementById("startButton"); // Add a button to start the game
+const playAgainButton = document.getElementById("playAgainButton"); // Add a button to play again
+const resetButton = document.getElementById("resetButton");
+
+resetButton.addEventListener("click", () => {
+  player1Score = 0;
+  player2Score = 0;
+  scores1.innerHTML = `Score: ${player1Score}`;
+  scores2.innerHTML = `Score: ${player2Score}`;
+  player1name.value = "";
+  player2name.value = "";
+  display.innerHTML = "";
+  currentPlayer = player1;
+  gameOver = false;
+  board = ["", "", "", "", "", "", "", "", ""];
+
+  boxes.forEach((box) => {
+    box.textContent = "";
+    box.style.backgroundColor = "";
+    box.classList.remove("blink");
+  });
+});
 
 startButton.addEventListener("click", () => {
   const name1 = player1name.value.trim();
@@ -28,8 +52,21 @@ startButton.addEventListener("click", () => {
   }
 });
 
+playAgainButton.addEventListener("click", () => {
+  board = ["", "", "", "", "", "", "", "", ""];
+  boxes.forEach((box) => {
+    box.textContent = "";
+    box.style.backgroundColor = "";
+    box.classList.remove("blink");
+  });
+
+  gameOver = false;
+  display.innerHTML = "";
+
+  currentPlayer = player1;
+});
+
 function enableGame() {
-  // Enable game logic here
   boxes.forEach((box, index) => {
     box.addEventListener("click", () => {
       audioElement.play();
@@ -42,8 +79,12 @@ function enableGame() {
           gameover.play();
           if (currentPlayer === "x") {
             display.innerHTML = `${player1name.value} wins`;
+            player1Score++;
+            scores1.innerHTML = `Score: ${player1Score}`;
           } else {
             display.innerHTML = `${player2name.value} wins`;
+            player2Score++;
+            scores2.innerHTML = `Score: ${player2Score}`;
           }
           gameOver = true;
         } else if (board.every((cell) => cell !== "")) {

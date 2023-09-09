@@ -23,7 +23,8 @@ body {
   border-radius: 7px;
   display: flex;
 }
-.player1 {
+.player1,
+.player2 {
   margin: 20px;
   background-color: yellow;
   height: auto;
@@ -32,7 +33,7 @@ body {
   border: 1px solid black;
 }
 .biggerbox {
-  padding: 20px;
+  padding: 0px 40px;
   display: grid;
   grid-template-columns: repeat(3, 200px);
 }
@@ -43,14 +44,18 @@ button {
   border-color: rgb(77, 212, 53);
   font-size: xx-large;
 }
-#startButton {
+#startButton,
+#playAgainButton,
+#resetButton {
   height: 50px;
-  width: 200px;
+  width: 100px;
   color: black;
   background-color: green;
   border-radius: 9px;
   margin: 5px;
+  font-size: smaller;
 }
+
 @media (max-width: 1240px) {
   button {
     height: 100px;
@@ -66,18 +71,12 @@ button {
   .player2 {
     margin: 5px;
   }
-  body{
+  body {
     margin-top: 0;
   }
-}
-
-.player2 {
-  margin: 20px;
-  background-color: yellow;
-  height: auto;
-  width: auto;
-  border-radius: 10px;
-  border: 1px solid black;
+  #startButton {
+    margin: 5px;
+  }
 }
 
 @keyframes blink {
@@ -101,11 +100,17 @@ span {
 }
 input {
   padding: 5px;
-  margin: 20px;
+  margin: 15px;
   background-color: rgb(228, 159, 69);
   height: 30px;
   width: 200px;
   font-size: x-large;
   font-style: italic;
   border-radius: 10px;
+}
+#scores2,
+#scores1 {
+  color: black;
+  font-size: large;
+  margin-bottom: 5px;
 }
